@@ -39,7 +39,7 @@ The goal is to prepare tidy data that can be used for later analysis.
 		These files were not included in the process of the script.	
 
 ## Processing Steps
-	This sections provides an overview of the steps in the code.
+	This sections provides an overview of the steps written in the code.
 	
 	Since I am new to R programming, it was not my goal to write "clever" code.  
 	
@@ -48,10 +48,15 @@ The goal is to prepare tidy data that can be used for later analysis.
 	I know as time goes on and I gain more experience in R, then how I write code will also improve.
 	
 	The project provided the following five steps.
-
+		Step 1.	Merge the training and the test sets to create one data set.
+		Step 2.	Extract only the measurements on the mean and standard deviation for each measurement.
+		Step 3.	Uses descriptive activity names to name the activities in the data set
+		Step 4. Appropriately labels the data set with descriptive variable names. 
+		Step 5. From the data set in step 4, create a second, independent tidy data set with the average 
+				of each variable for each activity and each subject.
 
 ###	Step 1.	Merge the training and the test sets to create one data set.
-		The values from the following files contained different data capture in columns.
+		The values from the following files contained the different data captured in columns.
 			subject_test			1 column data, 		2,947 rows
 			X_test : features		561 columns data, 	2,947 rows
 			y_test : activity		1 column data,		2,947 rows
@@ -63,34 +68,32 @@ The goal is to prepare tidy data that can be used for later analysis.
 			combined train			563 columns, 		2,947 rows
 
 			The rows from both combinations were merged together.
-			
 				563 columns, 5,894 rows
 
 ###	Step 2.	Extract only the measurements on the mean and standard deviation for each measurement. 		
 	A search was made for all columns with either mean or std in the name
 		86 columns matched this criteria.
-		the ID and Activity columns were also included
+		The ID and Activity columns were also included
 		
-		the resulting data was
+		The resulting data was
 			88 columns, 5,894 rows
 
 ###	Step 3.	Uses descriptive activity names to name the activities in the data set
 	The "activity_labels.txt" file provided contained the mappings of activity number to name.
 	The activity column in the data set was updated to have the names instead of the numbers.
 
-###	4.	Appropriately labels the data set with descriptive variable names. 
+###	Step 4. Appropriately labels the data set with descriptive variable names. 
 	
 	I took a very simplistic approach to doing this.
 	
 	I ran several statements to 
-	
 		* replace dashes with periods
 		* removed repeated words, like bodybody became body
 		* put a period in between each part of the variable name to help with readability
 		* the Code Book provides the details about each variable.
 	
 
-###	5.	From the data set in step 4, create a second, independent tidy data set with the average of each variable for each activity and each subject.
+###	Step 5. From the data set in step 4, create a second, independent tidy data set with the average of each variable for each activity and each subject.
 	
 	There were many ways to accomplish this.
 	I took a very simplistic approach to doing this since my experience in R was limited 
@@ -125,20 +128,12 @@ The goal is to prepare tidy data that can be used for later analysis.
 		This is the script that was created to generate the tidy data.
 	
 	* mean_std_tidy_data_<YYYMMDD>_<HHDDSS>.txt
-		The scripts creates a tiday data set.  The name of the file is appended with a date timestamp of when it was run.
+		The scripts creates a tiday data set.  
+		The name of the file is appended with a date timestamp of when it was run.
 		
-		In order to review the tidy data, then run the following.
+### In order to review the tidy data, then run the following.
 		
 		fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv"
 		download.file(fileUrl, destfile = "./mean_std_tidy_data_<YYYMMDD>_<HHDDSS>.txt", mode = "wb")
 
 		tidy_data <-  read.table("./mean_std_tidy_data_<YYYMMDD>_<HHDDSS>.txt", header=T, fill=T) 
-
-		
-	
-	
-
-			
-
-	
-	
