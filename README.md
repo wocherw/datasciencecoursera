@@ -1,10 +1,13 @@
 # What the Run Analysis Script Does
 This is a guide explaining what the run_analysis.R script does. This document is broken into the following
+
 	* Input Files
 	* Processing Steps
 	* Output File
+
 	
-The script was writeen for the Getting and Cleaning Data class offered by Coursera.
+The script was written for the Getting and Cleaning Data class offered by Coursera.
+
 The goal is to prepare tidy data that can be used for later analysis.
 
 ## Input Files
@@ -28,7 +31,8 @@ The goal is to prepare tidy data that can be used for later analysis.
 	* 'test/y_test.txt': Test labels.
 
 	* 'train/subject_train.txt' and 'test/subject_test': 
-		Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
+		Each row identifies the subject who performed the activity for each window sample. 
+		Its range is from 1 to 30. 
 
 	* 'train/Inertial Signals/*.*' and 'test/Inertial Signals/*.*': 
 		These files contain additional information.
@@ -36,48 +40,61 @@ The goal is to prepare tidy data that can be used for later analysis.
 
 ## Processing Steps
 	This sections provides an overview of the steps in the code.
-	Since I am new to R programming, it was not my goal to write "clever" code.  There is always more than one way to
-	implement a process.  Some of my coding decisions were very basic and simple.  I know as time goes on and I gain
-	more experience in R, then how I write code will also improve.
+	
+	Since I am new to R programming, it was not my goal to write "clever" code.  
+	
+	There is always more than one way to implement a process.  
+	Some of my coding decisions were very basic and simple. 
+	I know as time goes on and I gain more experience in R, then how I write code will also improve.
 	
 	The project provided the following five steps.
 
 
-###	Step 1.	Merges the training and the test sets to create one data set.
+###	Step 1.	Merge the training and the test sets to create one data set.
 		The values from the following files contained different data capture in columns.
-			subject_test			1 column data, 2,947 rows
-			X_test : features		561 columns data	, 2,947 rows
-			y_test : activity		1 column data, 2,947 rows
-			combined test : to create : 563 columns, 2,947 rows
+			subject_test			1 column data, 		2,947 rows
+			X_test : features		561 columns data, 	2,947 rows
+			y_test : activity		1 column data,		2,947 rows
+			combined test 			563 columns, 		2,947 rows
 			
-			subject_train			1 column data, 2,947 rows
-			X_train : features		561 columns data	, 2,947 rows
-			y_train : activity		1 column data, 2,947 rows
-			combined train : to create : 563 columns, 2,947 rows
+			subject_train			1 column data, 		2,947 rows
+			X_train : features		561 columns data, 	2,947 rows
+			y_train : activity		1 column data, 		2,947 rows
+			combined train			563 columns, 		2,947 rows
 
 			The rows from both combinations were merged together.
+			
 				563 columns, 5,894 rows
 
-###	Step 2.	Extracts only the measurements on the mean and standard deviation for each measurement. 		
+###	Step 2.	Extract only the measurements on the mean and standard deviation for each measurement. 		
 	A search was made for all columns with either mean or std in the name
 		86 columns matched this criteria.
 		the ID and Activity columns were also included
 		
 		the resulting data was
-		88 columns, 5,894 rows
+			88 columns, 5,894 rows
 
 ###	Step 3.	Uses descriptive activity names to name the activities in the data set
-	the "activity_labels.txt" file provided contained the mappings of activity number to name.
-	the activity column in the data set was updated to have the names instead of the numbers.
+	The "activity_labels.txt" file provided contained the mappings of activity number to name.
+	The activity column in the data set was updated to have the names instead of the numbers.
 
 ###	4.	Appropriately labels the data set with descriptive variable names. 
 	
+	I took a very simplistic approach to doing this.
+	
+	I ran several statements to 
+	
+		* replace dashes with periods
+		* removed repeated words, like bodybody became body
+		* put a period in between each part of the variable name to help with readability
+		* the Code Book provides the details about each variable.
+	
 
-###	5.	From the data set in step 4, creates a second, independent tidy data set  with the average 
-		of each variable for each activity and each subject.
+###	5.	From the data set in step 4, create a second, independent tidy data set with the average of each variable for each activity and each subject.
 	
 	There were many ways to accomplish this.
-	I took a very simplistic approach to doing this since my experience in R was limited and there was a time frame for getting this done.
+	I took a very simplistic approach to doing this since my experience in R was limited 
+	and there was a time frame for getting this done.
 
 	The ID and Activity columns were merged into a single column : ID_Activity
 	The two separate columns were dropped.
@@ -87,7 +104,7 @@ The goal is to prepare tidy data that can be used for later analysis.
 			ID_Activity, Variable, Value
 				Variable contained the names of the columns
 				
-	the average was then calculated by the ID_Activity to Variable combination.
+	The average was then calculated by the ID_Activity to Variable combination.
 
 	To make the data more readable, the result was formatted back to the long format.
 	This included separating the ID_Activity column back into 2 separate columns.
